@@ -61,6 +61,7 @@ function sticky_pre_populate_the_form($form) {
                         foreach ($form_fields as $key => $value) {
                             if (is_numeric($key)) {
                                 array_change_key($form_fields, $key, str_replace(".", "_", "input_$key"));
+                                
                                 // If the field is an upload
                                 if(strpos($value, "uploads/")) {
                                     $upload = $value;
@@ -126,7 +127,7 @@ function sticky_getEntryOptionKeyForGF($form) {
     return $option_key;
 }
 
-//Add Sticky checkbox to the form settings
+// Add Sticky checkbox to the form settings
 add_filter("gform_form_settings", "sticky_settings", 50, 2);
 
 function sticky_settings($form_settings, $form) {
@@ -156,7 +157,7 @@ function sticky_settings($form_settings, $form) {
 		return $form_settings;
 }
 
-//Action to inject supporting script to the form editor page
+// Action to inject supporting script to the form editor page
 add_action("gform_advanced_settings", "sticky_editor_script");
 function sticky_editor_script() {
     ?>
