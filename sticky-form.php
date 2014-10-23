@@ -31,11 +31,11 @@ add_filter("gform_pre_render", "sticky_pre_populate_the_form");
 
 function sticky_pre_populate_the_form($form) {
     if ($form['isSticky']) {
-		$current_page = GFFormDisplay::get_current_page($form["id"]);
-		if ($current_page == 1) {
+        $current_page = GFFormDisplay::get_current_page($form["id"]);
+        if ($current_page == 1) {
 
             // Get the entry ID 
-			$entry_id = sticky_getEntryOptionKeyForGF($form);
+            $entry_id = sticky_getEntryOptionKeyForGF($form);
 
             global $valid;
 
@@ -45,7 +45,7 @@ function sticky_pre_populate_the_form($form) {
                 if (get_option($entry_id)) {
 
                     // Get the entry 
-    				$form_fields = RGFormsModel::get_lead(get_option($entry_id));
+                    $form_fields = RGFormsModel::get_lead(get_option($entry_id));
 
                     // If an antry is found we need to modify it
                     if($form_fields) {
@@ -59,6 +59,12 @@ function sticky_pre_populate_the_form($form) {
 
                         // Remove non needed items and format the keys correctly
                         foreach ($form_fields as $key => $value) {
+
+                            // Lets the timestamp so we can use it later
+                            if($key == "date_created") {
+                                    $timestamp = $value;
+                                }
+                            
                             if (is_numeric($key)) {
                                 array_change_key($form_fields, $key, str_replace(".", "_", "input_$key"));
                                 
@@ -66,6 +72,7 @@ function sticky_pre_populate_the_form($form) {
                                 if(strpos($value, "uploads/")) {
                                     $upload = $value;
                                 }
+                                
                             } else {
                                 unset($form_fields[$key]);
                             }
@@ -76,9 +83,9 @@ function sticky_pre_populate_the_form($form) {
                         $form_fields["is_submit_$form_id"] = "1";
                         $_POST = $form_fields;
                     }
-    			}
+                }
             }
-		}
+        }
     }
 
     // Replace {upload} with reference to uploaded file
@@ -91,6 +98,18 @@ function sticky_pre_populate_the_form($form) {
             }
         }     
     }
+
+    // Replace {timestamp} with date_created
+    if($timestamp) {
+        foreach ($form["fields"] as &$field) {
+            foreach ($field as $key => &$value) {
+                if($key == "content") {
+                    $value = str_replace("{timestamp}", $timestamp, $value);              
+                }
+            }
+        }     
+    }
+
     return $form;
 }
 
@@ -132,29 +151,29 @@ add_filter("gform_form_settings", "sticky_settings", 50, 2);
 
 function sticky_settings($form_settings, $form) {
 
-	$tr_sticky = '
-        	<tr>
-            	<th>Sticky</th>
-        	<td>
+    $tr_sticky = '
+            <tr>
+                <th>Sticky</th>
+            <td>
             <input type="checkbox" id="form_sticky_value" onclick="SetFormStickyness();" />
             <label for="form_sticky_value">
                 Make form Sticky              
             </label>
-			</td>
+            </td>
         </tr>
         <tr>
-        	<th></th>
-        	<td>
+            <th></th>
+            <td>
             <input type="checkbox" id="form_enable_multiple_entry" onclick="SetFormMultipleEntry();" /> 
             <label for="form_enable_multiple_entry">              
                 Enable multi entry from same user while form is sticky
             </label>
-			</td>
+            </td>
         </tr>';
-		
-		$form_settings["Form Options"]['sticky'] = $tr_sticky;
-		
-		return $form_settings;
+        
+        $form_settings["Form Options"]['sticky'] = $tr_sticky;
+        
+        return $form_settings;
 }
 
 // Action to inject supporting script to the form editor page
