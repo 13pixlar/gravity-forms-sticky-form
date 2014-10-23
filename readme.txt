@@ -11,11 +11,17 @@ This plugin makes your Gravity Forms sticky.
 
 == Description ==
 
-Description: This is a <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> plugin that enables forms to be "sticky". A sticky form stays populated with the users submitted data. The data is retrieved from the actual entry. This makes the same entries editable from both back- and front end.
+This is a WordPress plugin for <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> that enables forms to be "sticky". A sticky form stays populated with the users submitted data. The data is retrieved from the actual entry. This makes the same entries editable from both back- and front end.
 
-This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>
+The stycky form is persistent so that when the user returns, all previous data is pre populated with his/hers previous submission.
 
-This plugin is Open Source and pull requests can be made on <a href="#">the Gitgub project page</a>
+Gravity Form persistens, or stickyness, is usefull if you have a form that acts as a user profile, company profile or in other similar situations where the data needs to be persistant every time a user visits that form. 
+
+This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>.
+
+**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> is required for this plugin.
+
+This plugin is Open Source and pull requests can be made on the <a href="#">Gitgub project page</a>
 
 == Installation ==
 
@@ -38,4 +44,4 @@ Sticky Form stores the data in an actual Gravity Forms entry. The advantage is t
 == Changelog ==
 
 = 1.0 =
-Initial release
+* Initial release

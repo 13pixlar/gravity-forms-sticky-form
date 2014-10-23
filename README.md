@@ -12,6 +12,8 @@ Gravity Form persistens, or stickyness, is usefull if you have a form that acts 
 
 This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>.
 
+**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> is required for this plugin.
+
 <h3>Installation</h3>
 
 1. Upload extracted folder to the '/wp-content/plugins/' directory
