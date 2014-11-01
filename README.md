@@ -42,14 +42,14 @@ Also, Sticky Form does not just delete the old entry and save a new one, thus ke
 
 <h3>Changelog</h3>
 
-= 1.0.3 =
+**1.0.3**
 * Fixed: Fixed a bug where new forms wouldn't get saved
 
-= 1.0.2 =
+**1.0.2**
 * Update: Save as same entry instead of creating a new one (entry retains its read and starred status)
 
-= 1.0.1 =
+**1.0.1**
 * Fixed: Do not pre-populate if the entry is in trash
 
-= 1.0 =
+**1.0**
 * Initial release
