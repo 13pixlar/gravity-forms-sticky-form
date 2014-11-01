@@ -1,27 +1,32 @@
 === Gravity Forms Sticky Form ===
-Contributors: asthait, unclhos
+Contributors: fried_eggz
 Tags: gravity, form, data, field, persistence, sticky, add-on, addon, plugin, plug-in, extension, pre, populate
 Requires at least: 2.9.2
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin makes your Gravity Forms sticky.
+A plugin that makes your Gravity Forms stick!
 
 == Description ==
 
-This is a WordPress plugin for <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> that enables forms to be "sticky". A sticky form stays populated with the users submitted data. The data is retrieved from the actual entry. This makes the same entries editable from both back- and front end.
+#### Sticky Form
+Sticky Form is a WordPress plugin for <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> that enables forms to be "sticky". A sticky form stays populated with the users submitted data. The data is retrieved from the actual entry. This makes the same entries editable from both back- and front end.
 
 The stycky form is persistent so that when the user returns, all previous data is pre populated with his/hers previous submission.
 
+#### Persistent Gravity Forms
 Gravity Forms persistens, or stickyness, is usefull if you have a form that acts as a user profile, company profile or in other similar situations where the data needs to be persistant every time a user visits that form. 
+
+#### Save entry ####
+Sticky Form uses a new Gravity Forms hook to save the submission to the same entry rather than creating a new entry and deleting the old one. This makes read and starred status stick!	
 
 This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>.
 
-**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> is required for this plugin.
+**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> v1.8+ is required for this plugin.
 
-This plugin is Open Source and pull requests can be made on the <a href="#">Gitgub project page</a>
+This plugin is Open Source and pull requests can be made on the <a href="https://github.com/13pixlar/gravity-forms-sticky-form">Gitgub project page</a>
 
 == Installation ==
 
@@ -37,11 +42,22 @@ This plugin is Open Source and pull requests can be made on the <a href="#">Gitg
 
 Yes, to some extent. The plugin supports one file upload per form. To output the link to the file use {upload} in a HTML field. Future versions of this plugin will support multiple files.
 
-= How is this plugin diffrent from similar plugins ?=
+= How is this plugin diffrent from similar plugins? =
 
 Sticky Form stores the data in an actual Gravity Forms entry. The advantage is that the entry can be edited on the back end and the new data will be used to populate the form on the front end. 
 
+Also, Sticky Form does not just delete the old entry and save a new one, thus keeping its read and starred status.
+
 == Changelog ==
+
+= 1.0.3 =
+* Fixed: Fixed a bug where new forms wouldn't get saved
+
+= 1.0.2 =
+* Update: Save as same entry instead of creating a new one (entry retains its read and starred status)
+
+= 1.0.1 =
+* Fixed: Do not pre-populate if the entry is in trash
 
 = 1.0 =
 * Initial release

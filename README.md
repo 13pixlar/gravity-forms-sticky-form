@@ -32,5 +32,14 @@ Sticky Form stores the data in an actual Gravity Forms entry. The advantage is t
 
 <h3>Changelog</h3>
 
-<h6>1.0</h6>
-Initial release
+= 1.0.3 =
+* Fixed: Fixed a bug where new forms wouldn't get saved
+
+= 1.0.2 =
+* Update: Save as same entry instead of creating a new one (entry retains its read and starred status)
+
+= 1.0.1 =
+* Fixed: Do not pre-populate if the entry is in trash
+
+= 1.0 =
+* Initial release
