@@ -20,13 +20,14 @@ The stycky form is persistent so that when the user returns, all previous data i
 Gravity Forms persistens, or stickyness, is usefull if you have a form that acts as a user profile, company profile or in other similar situations where the data needs to be persistant every time a user visits that form. 
 
 #### Save entry ####
-Sticky Form uses a new Gravity Forms hook to save the submission to the same entry rather than creating a new entry and deleting the old one. This makes read and starred status stick!	
+Sticky Form uses a new Gravity Forms hook to save the submission to the same entry rather than creating a new entry and deleting the old one. This makes read and starred status stick!
+
+#### Developers ####	
+There is a fully documented version of the plugin on the <a href="https://github.com/13pixlar/gravity-forms-sticky-form">Github project page</a>. This plugin is Open Source and pull requests are welcome.
 
 This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>.
 
 **Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> v1.8+ is required for this plugin.
-
-This plugin is Open Source and pull requests can be made on the <a href="https://github.com/13pixlar/gravity-forms-sticky-form">Gitgub project page</a>
 
 == Installation ==
 
