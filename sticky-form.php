@@ -79,8 +79,6 @@ function sticky_pre_populate_the_form($form) {
 
                         $_POST = $form_fields;
 
-                        var_dump($_POST);
-
                     // If no entry is found; unset the stored entry ID
                     }else {
                         update_option($entry_id, "");
