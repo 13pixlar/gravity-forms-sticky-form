@@ -49,6 +49,10 @@ Sticky Form stores the data in an actual Gravity Forms entry. The advantage is t
 
 Also, Sticky Form does not just delete the old entry and save a new one, thus keeping its read and starred status.
 
+= Fields controled by conditional logic do not get updated =
+
+There is a bug in the Gravity forms hook that prevent data from fields that are shown with conditional logic to get saved in the entry. I have contacted Gravity Forms support notifying them of the issue and await their response (and hopefully a fix). In the meantime, if you need conditional logic fields support, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin that uses a different way to save the entries.
+
 == Changelog ==
 
 = 1.0.3 =
