@@ -4,7 +4,7 @@
   Plugin URI: https://github.com/13pixlar/gravity-forms-sticky-form
   Description: This is a <a href="http://www.gravityforms.com/" target="_blank">Gravity Form</a> plugin that enables forms to be "sticky". A sticky form stays populated with the users submitted data retrieved from the actual entry.
   Author: Adam Rehal
-  Version: 1.0.3
+  Version: 1.0.4
   Author URI: http://13pixlar.se
   Orginal Plugin by: asthait & unclhos
  */
@@ -89,7 +89,7 @@ function sticky_pre_populate_the_form($form) {
     }
 
     // Replace {upload} with reference to uploaded file
-    if($upload) {
+    if (isset($upload)) {
         foreach ($form["fields"] as &$field) {
             foreach ($field as $key => &$value) {
                 if($key == "content") {
@@ -102,35 +102,47 @@ function sticky_pre_populate_the_form($form) {
     return $form;
 }
 
-// Now we need to save the entry rather then creating a new one
-add_filter( 'gform_entry_id_pre_save_lead', 'save_with_same_id', 10, 2 );
-function save_with_same_id( $entry_id, $form ) {
-    
-    $saved_option_value = get_option(sticky_getEntryOptionKeyForGF($form));
-
-    // But only if we allready have a saved entry
-    if ($form['isSticky'] && !$form['isEnableMulipleEntry'] && $saved_option_value) {
-        
-        $update_entry_id = $saved_option_value;
-        return $update_entry_id ? $update_entry_id : $entry_id;
-    }
-}
 
 // If we dont have a saved entry for this form, we need to save the ID of the one that have been created
+// If we do have a saved value however, we need to  update the old entry and delete the new entry
 add_action("gform_post_submission", "sticky_set_post_content", 10, 2);
 function sticky_set_post_content($entry, $form) {
 
     if ($form['isSticky']) {
         
-        // Save the entry ID in wp_options if this is the first time the form is submitted by this user.
         if (is_user_logged_in()) {
+
 
             $saved_option_key = sticky_getEntryOptionKeyForGF($form);
             $saved_option_value = get_option($saved_option_key);
-            
+
+            // Save the entry ID in wp_options if this is the first time the form is submitted by this user.
             // If we dont have a saved value, we save the entry ID
             if(!$saved_option_value) {
                 update_option($saved_option_key, $entry['id']);
+            
+            //If we have a saved value, update and delete
+            }else{
+                
+                // ...as long as the form doesnt allow multiple entries...
+                if(!$form['isEnableMulipleEntry']) {
+
+                    // We dont want to loose our starred and read status when we update
+                    $original_entry = RGFormsModel::get_lead($saved_option_value);
+                    $entry["is_starred"] = $original_entry["is_starred"];
+                    
+                    // ...unless the user wants us to
+                    if(!$form['isMarkUnread']) {
+                        $entry["is_read"] = $original_entry["is_read"];
+                    }
+
+                    $success = GFAPI::update_entry($entry, $saved_option_value);
+                    $success = GFAPI::delete_entry($entry["id"]);
+
+                // ...and if it does, dont delete or update but save the new entry ID instead so that the sticky form is populated with the latest saved entry.
+                }else{
+                   update_option($saved_option_key, $entry['id']); 
+                }
             }
         }
     }
@@ -156,6 +168,9 @@ function sticky_settings($form_settings, $form) {
 
     $tr_sticky = '
             <tr>
+                <td colspan="2"><h4 class="gf_settings_subgroup_title">Sticky Form</h4></td>
+            </tr>
+            <tr>
                 <th>Sticky Form</th>
             <td>
             <input type="checkbox" id="form_sticky_value" onclick="SetFormStickyness();" />
@@ -165,11 +180,22 @@ function sticky_settings($form_settings, $form) {
             </td>
         </tr>
         <tr>
-            <th></th>
+            <tr>
+                <th>Multi entry</th>
             <td>
             <input type="checkbox" id="form_enable_multiple_entry" onclick="SetFormMultipleEntry();" /> 
             <label for="form_enable_multiple_entry">              
-                Enable multi entry from same user while form is sticky
+                Enable multiple entries from same user while form is sticky
+            </label>
+            </td>
+        </tr>
+        <tr>
+            <tr>
+                <th>Mark unread</th>
+            <td>
+            <input type="checkbox" id="form_mark_unread" onclick="SetFormMarkUnread();" /> 
+            <label for="form_mark_unread">              
+                Mark entry as unread when updated
             </label>
             </td>
         </tr>';
@@ -191,9 +217,13 @@ function sticky_editor_script() {
         function SetFormMultipleEntry(){
             form.isEnableMulipleEntry = jQuery("#form_enable_multiple_entry").is(":checked");
         }
+        function SetFormMarkUnread(){
+            form.isMarkUnread = jQuery("#form_mark_unread").is(":checked");
+        }
                 
         jQuery("#form_sticky_value").attr("checked", form.isSticky);       
         jQuery("#form_enable_multiple_entry").attr("checked", form.isEnableMulipleEntry);
+        jQuery("#form_mark_unread").attr("checked", form.isMarkUnread);
         
     </script>
     <?php

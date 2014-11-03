@@ -3,7 +3,7 @@ Contributors: fried_eggz
 Tags: gravity, form, data, field, persistence, sticky, add-on, addon, plugin, plug-in, extension, pre, populate
 Requires at least: 2.9.2
 Tested up to: 4.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ There is a fully documented version of the plugin on the <a href="https://github
 
 This plugin is based on <h href="https://wordpress.org/plugins/gravity-forms-data-persistence-add-on-reloaded/">Gravity Forms Data Persistence Add-On Reloaded</a>.
 
-**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> v1.8+ is required for this plugin.
+**Note:** <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> is required for this plugin.
 
 == Installation ==
 
@@ -49,11 +49,25 @@ Sticky Form stores the data in an actual Gravity Forms entry. The advantage is t
 
 Also, Sticky Form does not just delete the old entry and save a new one, thus keeping its read and starred status.
 
-= Fields controled by conditional logic do not get updated =
+= Some fields do not get updated =
 
-There is a bug in the Gravity forms hook that prevent data from fields that are shown with conditional logic to get saved in the entry. I have contacted Gravity Forms support notifying them of the issue and await their response (and hopefully a fix). In the meantime, if you need conditional logic fields support, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin that uses a different way to save the entries.
+There is a bug in the Gravity Forms api that prevent fields from get saved in the entry. I have patched the bug and submitted the patch to Gravity Forms. In the meantime, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin that uses a different way to save the entries, or apply the patch manually to 'plugins/gravityforms/includes/api.php'
+
+On line '510', remove 
+'if (empty($entry_id))
+    $entry_id = $entry["id"];'
+and replace with
+'if (empty($entry_id)) {
+    $entry_id = $entry["id"];
+}else{
+    $entry["id"] = $entry_id;
+}'
 
 == Changelog ==
+
+= 1.0.4 =
+* Improvment: Use the Gravity Forms API to update form (Please RocketGenius, fix the bug in your code)
+* New option: Choose if the entry should be marked as unread upon save
 
 = 1.0.3 =
 * Fixed: Fixed a bug where new forms wouldn't get saved
