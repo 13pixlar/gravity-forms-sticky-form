@@ -54,18 +54,18 @@ Also, Sticky Form does not just delete the old entry and save a new one, thus ke
 There is a bug in the Gravity Forms api that prevent fields from getting saved in the entry. I have patched the bug and submitted the patch to Gravity Forms. In the meantime, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin that uses a different way to save the entries, or apply the patch manually to `plugins/gravityforms/includes/api.php`
 
 On line `510`, remove 
-```
+`
 if (empty($entry_id))
     $entry_id = $entry["id"];
-```
+`
 and replace with
-```
+`
 if (empty($entry_id)) {
     $entry_id = $entry["id"];
 }else{
     $entry["id"] = $entry_id;
 }
-```
+`
 
 == Changelog ==
 
