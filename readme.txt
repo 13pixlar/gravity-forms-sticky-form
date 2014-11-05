@@ -14,7 +14,9 @@ A plugin that makes your Gravity Forms stick!
 #### Sticky Form
 Sticky Form is a WordPress plugin for <a href="http://www.gravityforms.com/" target="_blank">Gravity Forms</a> that enables forms to be "sticky". A sticky form stays populated with the users submitted data. The data is retrieved from the actual entry. This makes the same entries editable from both back- and front end.
 
-The stycky form is persistent so that when the user returns, all previous data is pre populated with his/hers previous submission.
+The sticky form is persistent so that when the user returns, all previous data is pre populated with his/hers previous submission.
+
+**Note:** There is a bug in the Gravity Forms API that prevents Sticky Form from working correctly. Mor information and fix, please see the <a href="https://wordpress.org/plugins/gravity-forms-sticky-form/faq/">FAQ section</a>.
 
 #### Persistent Gravity Forms
 Gravity Forms persistens, or stickyness, is usefull if you have a form that acts as a user profile, company profile or in other similar situations where the data needs to be persistant every time a user visits that form. 
@@ -51,7 +53,7 @@ Also, Sticky Form does not just delete the old entry and save a new one, thus ke
 
 = Some fields do not get updated =
 
-There is a bug in the Gravity Forms api that prevent fields from getting saved in the entry. I have patched the bug and submitted the patch to Gravity Forms. In the meantime, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin that uses a different way to save the entries, or apply the patch manually to `plugins/gravityforms/includes/api.php`
+There is a bug in the Gravity Forms api that prevent fields from getting saved in the entry. I have patched the bug and submitted the patch to Gravity Forms. In the meantime, use an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin (that uses a different way to save the entries), or apply the patch manually to `plugins/gravityforms/includes/api.php`
 
 On line `510`, remove 
 `
