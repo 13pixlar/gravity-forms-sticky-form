@@ -1,6 +1,6 @@
 <h1>Gravity Forms Sticky Form</h1>
 
-Sticky Form is a Gravity Forms Add-on that enables forms to be "sticky". A sticky form stays populated with the users submitted data.
+Sticky Form is a Gravity Forms (for wordpress) add-on that enables forms to be "sticky". A sticky form stays populated with the users submitted data.
 
 <h2>Description</h2>
 
