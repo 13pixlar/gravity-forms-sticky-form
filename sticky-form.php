@@ -132,7 +132,7 @@ function sticky_set_post_content($entry, $form) {
                     $entry["is_starred"] = $original_entry["is_starred"];
                     
                     // ...unless the user wants us to
-                    if(!$form['isMarkUnread']) {
+                    if(isset(!$form['isMarkUnread'])) {
                         $entry["is_read"] = $original_entry["is_read"];
                     }
 
