@@ -9,6 +9,8 @@ Sticky Form is a WordPress plugin for <a href="http://www.gravityforms.com/" tar
 
 The sticky form is persistent so that when the user returns, all previous data is pre populated with his/hers previous submission.
 
+**Note:** There is a bug in the Gravity Forms API that prevents Sticky Form from working correctly. Mor information and fix, please see the FAQ section of this readme.
+
 #### Persistent Gravity Forms
 Gravity Forms persistens, or stickyness, is usefull if you have a form that acts as a user profile, company profile or in other similar situations where the data needs to be persistant every time a user visits that form. 
 
