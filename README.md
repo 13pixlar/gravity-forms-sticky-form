@@ -45,7 +45,7 @@ Also, Sticky Form does not just delete the old entry and save a new one, thus ke
 
 <h5>Some fields do not get updated</h5>
 
-There is a bug in the Gravity Forms api that prevent fields from getting saved in the entry. I have patched the bug and submitted the patch to Gravity Forms. In the meantime, download an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin, (that uses a different way to save the entries) or apply the patch manually to `plugins/gravityforms/includes/api.php`
+There is a bug in the Gravity Forms api that prevent fields from getting saved in the entry. This will supposedly get fixed in Gravity Forms 1.9. In the meantime, download an <a href="https://downloads.wordpress.org/plugin/gravity-forms-sticky-form.1.0.1.zip">earlier version</a> of this plugin, (that uses a different way to save the entries) or apply the patch manually to `plugins/gravityforms/includes/api.php`
 
 On line `510`, remove 
 ```PHP
@@ -64,7 +64,7 @@ if (empty($entry_id)) {
 <h3>Changelog</h3>
 
 **1.0.4**
-* Improvment: Use the Gravity Forms API to update form (Please RocketGenius, fix the bug in your code)
+* Improvment: Use the Gravity Forms API to update form
 * New option: Choose if the entry should be marked as unread upon save
 
 **1.0.3**
