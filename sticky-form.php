@@ -4,9 +4,10 @@
   Plugin URI: https://github.com/13pixlar/gravity-forms-sticky-form
   Description: This is a <a href="http://www.gravityforms.com/" target="_blank">Gravity Form</a> plugin that enables forms to be "sticky". A sticky form stays populated with the users submitted data retrieved from the actual entry.
   Author: Adam Rehal
-  Version: 1.0.4
+  Version: 1.0.4jgryn
   Author URI: http://13pixlar.se
   Orginal Plugin by: asthait & unclhos
+  Last Updated by: Jacob Gryn http://www.co4.com - Fix to allow 
  */
 
 
@@ -30,6 +31,10 @@ function test_valid($form) {
 
 // Lets atempt to pre populate the form
 add_filter("gform_pre_render", "sticky_pre_populate_the_form");
+
+function isSerialized($str) {
+    return ($str == serialize(false) || @unserialize($str) !== false);
+}
 
 function sticky_pre_populate_the_form($form) {
     if ($form['isSticky']) {
@@ -57,7 +62,6 @@ function sticky_pre_populate_the_form($form) {
 
                         // Create new correctly formated keys and get rid of the old ones
                         foreach ($form_fields as $key => &$value) {
-                            
                             // If the key is numeric we need to change it from [X.X] to [input_X_X]
                             if (is_numeric($key)) {
 
@@ -66,6 +70,24 @@ function sticky_pre_populate_the_form($form) {
                                 $form_fields[$new_key] = $form_fields[$key];
                                 unset($form_fields[$key]);                            
                                 
+			    	if(isSerialized($value))
+				{
+					$dump=unserialize($value);
+					foreach($dump as $k => &$v)
+					{
+						if(is_array($v))
+						{
+							unset($form_fields[$new_key]);
+							foreach($v as $k2 => &$v2)
+							{
+								$a[]=$v2;
+							}
+							$form_fields[$new_key]=$a;
+						}
+					}
+					unset($a);
+				}
+
                                 // If we have an upload field
                                 if(strpos($value, "uploads/")) {
                                     $upload = $value;
@@ -78,7 +100,6 @@ function sticky_pre_populate_the_form($form) {
                         $form_fields["is_submit_$form_id"] = "1";
 
                         $_POST = $form_fields;
-
                     // If no entry is found; unset the stored entry ID
                     }else {
                         update_option($entry_id, "");
