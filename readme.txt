@@ -2,8 +2,8 @@
 Contributors: fried_eggz
 Tags: gravity, form, data, field, persistence, sticky, add-on, addon, plugin, plug-in, extension, pre, populate
 Requires at least: 2.9.2
-Tested up to: 4.0
-Stable tag: 1.0.4
+Tested up to: 4.3
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,9 @@ if (empty($entry_id)) {
 `
 
 == Changelog ==
+
+= 1.0.5 =
+* Fixed: Unserialize list form fields (Thanks to jgryn)
 
 = 1.0.4 =
 * Improvment: Use the Gravity Forms API to update form

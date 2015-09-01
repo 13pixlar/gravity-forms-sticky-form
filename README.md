@@ -63,6 +63,9 @@ if (empty($entry_id)) {
 
 <h3>Changelog</h3>
 
+**1.0.5**
+* Fixed: Unserialize list form fields (Thanks to jgryn)
+
 **1.0.4**
 * Improvment: Use the Gravity Forms API to update form
 * New option: Choose if the entry should be marked as unread upon save
