@@ -4,10 +4,9 @@
   Plugin URI: https://github.com/13pixlar/gravity-forms-sticky-form
   Description: This is a <a href="http://www.gravityforms.com/" target="_blank">Gravity Form</a> plugin that enables forms to be "sticky". A sticky form stays populated with the users submitted data retrieved from the actual entry.
   Author: Adam Rehal
-  Version: 1.0.4jgryn
+  Version: 1.0.5
   Author URI: http://13pixlar.se
   Orginal Plugin by: asthait & unclhos
-  Last Updated by: Jacob Gryn http://www.co4.com - Fix to allow 
  */
 
 
