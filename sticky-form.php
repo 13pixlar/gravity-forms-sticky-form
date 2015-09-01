@@ -53,8 +53,6 @@ function sticky_pre_populate_the_form($form) {
                     // If an entry is found we need prepare if for insertion into the form
                     if($form_fields  && $form_fields["status"] != "trash") {
 
-                        
-
                         // Create new correctly formated keys and get rid of the old ones
                         foreach ($form_fields as $key => &$value) {
                             
