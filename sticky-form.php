@@ -36,7 +36,7 @@ function isSerialized($str) {
 }
 
 function sticky_pre_populate_the_form($form) {
-    if ($form['isSticky']) {
+    if ( isset( $form['isSticky'] ) && $form['isSticky'] ) {
         $current_page = GFFormDisplay::get_current_page($form["id"]);
         if ($current_page == 1) {
 
