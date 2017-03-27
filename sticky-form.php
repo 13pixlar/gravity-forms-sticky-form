@@ -12,7 +12,7 @@
 
 // Definne global variable $valid and set to true. We need to do this to prevent the form values from disapearing in there is a validation error
 global $valid;
-$valid = 1;
+$valid = [];
 
 // Check if the form is valid, and if it is set the variable $valid to true, if not, set to false
 add_filter( 'gform_validation', 'test_valid' );
@@ -20,9 +20,9 @@ add_filter( 'gform_validation', 'test_valid' );
 function test_valid($form) {
     global $valid;
     if($form['is_valid']){
-        $valid = 1;
+        $valid[$form['form']['id']] = 1;
     }else{
-        $valid = 0;
+        $valid[$form['form']['id']] = 0;
     }
     return $form;
 }
@@ -46,7 +46,7 @@ function sticky_pre_populate_the_form($form) {
             $entry_id = sticky_getEntryOptionKeyForGF($form);
 
             // If the form has been submited, is valid and we are not in the preview area
-            if($valid && strpos($_SERVER['REQUEST_URI'],'preview') == false) {
+            if(!isset($valid[$form['form']['id']]) || ($valid[$form['form']['id']] && strpos($_SERVER['REQUEST_URI'],'preview') == false)) {
 
                 // We have a previously saved entry
                 if (get_option($entry_id)) {
@@ -67,23 +67,23 @@ function sticky_pre_populate_the_form($form) {
                                 $form_fields[$new_key] = $form_fields[$key];
                                 unset($form_fields[$key]);                            
                                 
-			    	if(isSerialized($value))
-				{
-					$dump=unserialize($value);
-					foreach($dump as $k => &$v)
-					{
-						if(is_array($v))
-						{
-							unset($form_fields[$new_key]);
-							foreach($v as $k2 => &$v2)
-							{
-								$a[]=$v2;
-							}
-							$form_fields[$new_key]=$a;
-						}
-					}
-					unset($a);
-				}
+                    if(isSerialized($value))
+                {
+                    $dump=unserialize($value);
+                    foreach($dump as $k => &$v)
+                    {
+                        if(is_array($v))
+                        {
+                            unset($form_fields[$new_key]);
+                            foreach($v as $k2 => &$v2)
+                            {
+                                $a[]=$v2;
+                            }
+                            $form_fields[$new_key]=$a;
+                        }
+                    }
+                    unset($a);
+                }
 
                                 // If we have an upload field
                                 if(strpos($value, "uploads/")) {
@@ -96,7 +96,7 @@ function sticky_pre_populate_the_form($form) {
                         $form_id = $form['id'];
                         $form_fields["is_submit_$form_id"] = "1";
 
-                        $_POST = $form_fields;
+                        $_POST = array_merge($form_fields,$_POST);
                     // If no entry is found; unset the stored entry ID
                     }else {
                         update_option($entry_id, "");
